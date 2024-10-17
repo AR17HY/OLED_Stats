@@ -1,5 +1,5 @@
 # Created by: Michael Klements
-# For Raspberry Pi Desktop Case with OLED Stats Display
+# For Raspberry Pi Desktop Case with OLED Stats Display with SPI interface
 # Base on Adafruit CircuitPython & SSD1306 Libraries
 # Installation & Setup Instructions - https://www.the-diy-life.com/add-an-oled-stats-display-to-raspberry-pi-os-bullseye/
 import time
@@ -12,8 +12,10 @@ import adafruit_ssd1306
 
 import subprocess
 
-# Define the Reset Pin
-oled_reset = digitalio.DigitalInOut(board.D4)
+# Define the I/O Pins
+oled_RST = digitalio.DigitalInOut(board.D17)
+oled_DC = digitalio.DigitalInOut(board.D22)
+oled_CS = digitalio.DigitalInOut(board.D8)
 
 # Display Parameters
 WIDTH = 128
@@ -23,9 +25,9 @@ BORDER = 5
 # Display Refresh
 LOOPTIME = 1.0
 
-# Use for I2C.
-i2c = board.I2C()
-oled = adafruit_ssd1306.SSD1306_I2C(WIDTH, HEIGHT, i2c, addr=0x3C, reset=oled_reset)
+# Use for SPI
+spi = board.SPI()
+oled = adafruit_ssd1306.SSD1306_spi(WIDTH, HEIGHT, spi, oled_DC, oled_RST, oled_CS)
 
 # Clear display.
 oled.fill(0)
