@@ -27,7 +27,7 @@ LOOPTIME = 1.0
 
 # Use for SPI
 spi = board.SPI()
-oled = adafruit_ssd1306.SSD1306_spi(WIDTH, HEIGHT, spi, oled_DC, oled_RST, oled_CS)
+oled = adafruit_ssd1306.SSD1306_SPI(WIDTH, HEIGHT, spi, oled_DC, oled_RST, oled_CS)
 
 # Clear display.
 oled.fill(0)
